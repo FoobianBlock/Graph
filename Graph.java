@@ -49,25 +49,56 @@ public class Graph {
     public void matrixAusgeben() {
         System.out.print("\033[1;94m"); // Blue, Bold
 
+        // Get max oName length
+        int maxNameLaenge = 0;
+        for (int i = 0; i < knotenfeld.length; i++) {
+            if (knotenfeld[i] == null)
+                break;
+            
+            String n = knotenfeld[i].daten.gibOrtsname();
+            if (n.length() > maxNameLaenge)
+                maxNameLaenge = n.length();
+        }
+
+        // Spacing above row labels
+        for (int j = 0; j < maxNameLaenge; j++)
+            System.out.print(" ");
+
+        // collum labels
         for (Knoten k : knotenfeld) {
             if(k != null)
                 System.out.print("\t" + k.daten.gibOrtsname());
             else
-            System.out.print("\t-");
+            System.out.print("\t-"); // null name label
         }
 
         System.out.print("\033[0m"); // Reset formatting
 
+        // rows
         for (int i = 0; i < adjazenzmatrix.length; i++) {
+
+            // row labels
             System.out.print("\n\033[1;94m");  // Blue, Bold
 
-            if(knotenfeld[i] != null)
-                System.out.print(knotenfeld[i].daten.gibOrtsname());
-            else
-                System.out.print("-");
+            if(knotenfeld[i] != null) {
+                String oName = knotenfeld[i].daten.gibOrtsname();
+                System.out.print(oName);
+
+                // Spacing next to row labels
+                for (int j = 0; j < maxNameLaenge - oName.length() + 3; j++)
+                    System.out.print(" ");
+            }
+            else {
+                System.out.print("-"); // null name label
+
+                // Spacing next to row labels
+                for (int j = 0; j < maxNameLaenge - 1 + 3; j++)
+                    System.out.print(" ");
+            }
             
             System.out.print("\033[0m"); // Reset formatting
 
+            // Adjazentmatrix
             for (int e : adjazenzmatrix[i]) {
                 if(e > -1)
                     System.out.print("\t " + e);
