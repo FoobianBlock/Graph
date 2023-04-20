@@ -43,7 +43,32 @@ public class Graph {
         if(gewichtung < 1)
             System.out.println("Ungültige Gewichtung " + gewichtung + "!");
         else
-            adjazenzmatrix[start][ziel] = gewichtung;
+            if (start > knotenfeld.length || ziel > knotenfeld.length)
+                System.out.println("Ungültige Operation: Hinzufügen einer Kante zwischen nicht existenten Knoten");
+            else
+                adjazenzmatrix[start][ziel] = gewichtung;
+    }
+
+    public void tiefensuche(int StartKnoten) {
+        // Besucht-Status der Knoten zurücksetzen
+        for (int i = 0; i < anzknoten; i++) {
+            knotenfeld[i].besucht = false;
+        }
+
+        tiefensucheDurchfuehren(StartKnoten);
+    }
+
+    private void tiefensucheDurchfuehren(int knotenNr) {
+        knotenfeld[knotenNr].besucht = true;
+        System.out.println(knotenfeld[knotenNr].daten.gibOrtsname());
+
+        for (int i = 0; i < anzknoten; i++) {
+            if(adjazenzmatrix[knotenNr][i] > 0) {
+                if(!knotenfeld[i].besucht) {
+                    tiefensucheDurchfuehren(i);
+                }
+            }
+        }
     }
 
     public void matrixAusgeben() {
@@ -106,5 +131,7 @@ public class Graph {
                     System.out.print("\t" + e);
             }
         }
+
+        System.out.print("\n");
     }
 }

@@ -4,9 +4,11 @@ public class main {
         g.knotenHinzufuegen(new Datenelement("A", 0));
         g.knotenHinzufuegen(new Datenelement("B", 0));
         g.knotenHinzufuegen(new Datenelement("C", 0));
-        g.kanteHinzufuegen(1, 3, 5);
+        g.kanteHinzufuegen(1, 2, 5);
         g.kanteHinzufuegen(2, 1, 10);
 
         g.matrixAusgeben();
+
+        g.tiefensuche(1);
     }
 }
