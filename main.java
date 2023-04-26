@@ -9,6 +9,7 @@ public class main {
 
         g.matrixAusgeben();
 
+        System.out.println("\nTiefensuche von B:");
         g.tiefensuche(1);
     }
 }

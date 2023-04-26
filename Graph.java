@@ -52,19 +52,19 @@ public class Graph {
     public void tiefensuche(int StartKnoten) {
         // Besucht-Status der Knoten zurücksetzen
         for (int i = 0; i < anzknoten; i++) {
-            knotenfeld[i].besucht = false;
+            knotenfeld[i].setzeBesucht(false);
         }
 
         tiefensucheDurchfuehren(StartKnoten);
     }
 
     private void tiefensucheDurchfuehren(int knotenNr) {
-        knotenfeld[knotenNr].besucht = true;
-        System.out.println(knotenfeld[knotenNr].daten.gibOrtsname());
+        knotenfeld[knotenNr].setzeBesucht(true);
+        System.out.println(knotenfeld[knotenNr].gibDaten().gibOrtsname());
 
         for (int i = 0; i < anzknoten; i++) {
             if(adjazenzmatrix[knotenNr][i] > 0) {
-                if(!knotenfeld[i].besucht) {
+                if(!knotenfeld[i].gibBesucht()) {
                     tiefensucheDurchfuehren(i);
                 }
             }
@@ -80,7 +80,7 @@ public class Graph {
             if (knotenfeld[i] == null)
                 break;
             
-            String n = knotenfeld[i].daten.gibOrtsname();
+            String n = knotenfeld[i].gibDaten().gibOrtsname();
             if (n.length() > maxNameLaenge)
                 maxNameLaenge = n.length();
         }
@@ -92,7 +92,7 @@ public class Graph {
         // collum labels
         for (Knoten k : knotenfeld) {
             if(k != null)
-                System.out.print("\t" + k.daten.gibOrtsname());
+                System.out.print("\t" + k.gibDaten().gibOrtsname());
             else
             System.out.print("\t-"); // null name label
         }
@@ -106,7 +106,7 @@ public class Graph {
             System.out.print("\n\033[1;94m");  // Blue, Bold
 
             if(knotenfeld[i] != null) {
-                String oName = knotenfeld[i].daten.gibOrtsname();
+                String oName = knotenfeld[i].gibDaten().gibOrtsname();
                 System.out.print(oName);
 
                 // Spacing next to row labels
